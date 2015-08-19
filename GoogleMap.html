@@ -10,10 +10,9 @@
     <script type="text/ng-template" id="_map.html">
         <div id="input">
             <label for="long">longtitude:</label>
-            <input type="text" id="long" ng-model="longitude">
+            <input type="text" id="long" ng-model="longitude" ng-keypress="updateMap($event)">
             <label for="lati">lantitude:</label>
-            <input type="text" id="lati" ng-model="latitude">
-            <input type="button" value="submit" ng-click="updateMap()">
+            <input type="text" id="lati" ng-model="latitude" ng-keypress="updateMap($event)">
         </div>
     </script>
     <style>
@@ -48,9 +47,11 @@
                     }
                     google.maps.event.addDomListener(window, 'load', init);
 
-                    scope.updateMap = function(){
+                    scope.updateMap = function($event){
                         console.log(typeof scope.latitude);
-                        Map.getMap(parseFloat(scope.latitude),parseFloat(scope.longitude));
+                        if($event.keyCode === 13){
+                            Map.getMap(parseFloat(scope.latitude),parseFloat(scope.longitude));
+                        }
                     }
 
                 }
